@@ -22,7 +22,7 @@ export class TodoListModel extends EventEmitter{
      * @returns {TodoItemModel[]}
      */
 	getTodoItems(){
-		return this.items
+		return this.items;
 	}
 
 	 /**
@@ -30,7 +30,7 @@ export class TodoListModel extends EventEmitter{
      * @param {Function} listener
      */
 	onChange(listener){
-		this.addEventListner("change", listener);
+		this.addEventListener("change", listener);
 	}
 	 /**
      * 状態が変更されたときに呼ぶ。登録済みのリスナー関数を呼び出す

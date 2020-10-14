@@ -5,7 +5,7 @@ import { element, render } from "./view/html-util.js";
 export class App{
 	// 1. TodoListの初期化
 	constructor(){
-		this.TodoListModel = new TodoListModel();
+		this.todoListModel = new TodoListModel();
 	}
 
 	mount(){
@@ -16,17 +16,22 @@ export class App{
 		const todoItemCountElement = document.querySelector("#js-todo-count");
 
 		// 2. TodoListModelの状態が更新されたら表示を更新する
-		this.TodoListModel.onChange(() => {
+		this.todoListModel.onChange(() => {
 			// TodoリストをまとめるList要素
 			const todoListElement = element`<ul />`;
+			// それぞれのTodoItem要素をtodoListElement以下へ追加する
+			const todoItems = this.todoListModel.getTodoItems();
 			todoItems.forEach(item =>{
 				const todoItemElement = element`<li>${item.title}</li>`;
+				console.log(todoItemElement)
 				todoListElement.appendChild(todoItemElement);
+				console.log(todoListElement)
 			});
+
 			// containerElementの中身をtodoListElementで上書きする
 			render(todoListElement, containerElement);
 			// アイテム数の表示を更新する
-			todoItemCountElement.TextContent = `Todoアイテム数 : ${this.todoListModel.getTotalCount()}`;
+			todoItemCountElement.textContent = `Todoアイテム数 : ${this.todoListModel.getTotalCount()}`;
 		});
 
 	 	// 3. フォームを送信したら、新しいTodoItemModelを追加する
@@ -35,10 +40,10 @@ export class App{
 			//submitイベント本来の動作を止める
 			event.preventDefault();
 			// 新しいTodoアイテムをTodoListへ追加する
-			this.todoListModel.addTodo(new TodoItemModel) ({
+			this.todoListModel.addTodo(new TodoItemModel({
 				title: inputElement.value,
 				completed: false
-			});
+			}));
 			//入力値を空文字列にしてリセットする
 			inputElement.value = "";
 		});

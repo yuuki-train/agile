@@ -13,8 +13,8 @@ export class EventEmitter{
 	addEventListener(type, listener){
 		//イベント名が登録されていない場合→
 		//イベント名typeとSet（リスナー関数を呼び出す）をMapに新規登録
-		if(!this.listeners.has(type)){
-			this,_listeners.set(type, new Set());
+		if(!this._listeners.has(type)){
+			this._listeners.set(type, new Set());
 		}
 	//イベント名をlistenerSetに登録する
 	const listenerSet = this._listeners.get(type);
@@ -34,7 +34,7 @@ export class EventEmitter{
 			return;
 		}
 		//引数のイベント名と一致すれば、Setに登録した全てのコールバック関数を呼び出す。
-		listenerSet,forEach(listener=>{
+		listenerSet.forEach(listener=>{
 			listener.call(this);
 		});
 	}
