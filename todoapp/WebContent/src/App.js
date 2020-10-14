@@ -38,7 +38,7 @@ export class App{
 			this.todoListModel.addTodo(new TodoItemModel) ({
 				title: inputElement.value,
 				completed: false
-			}));
+			});
 			//入力値を空文字列にしてリセットする
 			inputElement.value = "";
 		});
